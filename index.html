@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://cryptic-ridge-9197.herokuapp.com/ -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+        <form action="/api/fileanalyse/" method="POST" enctype="multipart/form-data">
+            <input type="file" name='aFile' placeholder="Select file"/>
+            <br/>
+            <input type="submit">Upload</button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            $('form').submit(function(e){
+                // on submit stop default action and propagation
+                e.stopPropagation()
+                e.preventDefault()
+
+                // send a POST to the /api/fileanalyze path with FormData object
+                $.post({
+                    url: '/api/fileanalyse/',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log('ERRORS: ' + textStatus)
+                    },
+                    success: function(data){
+                        alert('FILE SIZE: ' + data.size)
+                    },
+                })
+            })
+        </script>
+    </body>
+</html>
